@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;600&display=swap');
+
+/* ===== GENERAL ===== */
+body {
+	background: linear-gradient(180deg, #b7e779 0%, #7ac74c 100%);
+	font-family: 'Poppins', sans-serif;
+	color: #1b3b1a;
+	margin: 0;
+	padding: 0;
+	background-attachment: fixed;
+	background-image: url('https://www.transparenttextures.com/patterns/leaf.png');
+}
+
+section {
+	background-color: rgba(255, 255, 255, 0.85);
+	border-radius: 12px;
+	margin: 20px;
+	padding: 20px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Titulos con fuente retro Pokémon */
+.titulos {		 
+	border-radius: 12px;	
+	box-shadow: 0 3px 10px rgba(50, 100, 50, 0.3);
+	color: #2e7d32;
+	border: 3px solid #66bb6a;		
+	background-color: #e8f5e9;	
+	padding: 10px 15px;
+	text-align: center;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 12pt;
+	text-transform: uppercase;
+}
+
+/* Texto general coherente */
+.h2, .cuenta, .form-text, p, label, input, select, textarea {
+	font-family: 'Poppins', sans-serif;
+}
+
+/* Botones tipo Pokébola hoja */
+.btn {
+	background: linear-gradient(145deg, #66bb6a, #43a047);
+	color: white;		
+	font-weight: bold;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 20px;
+	box-shadow: 0 4px 0 #2e7d32;
+	transition: all 0.2s ease-in-out;
+	text-transform: uppercase;
+	font-family: 'Poppins', cursive;
+	font-size: 9pt;
+}
+.btn:hover {
+	color: white;
+	background: linear-gradient(145deg, #81c784, #4caf50);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 0 #1b5e20;
+}
+
+/* ===== HEADER ===== */
+.cabecera {
+	background: linear-gradient(90deg, #388e3c, #9ccc65);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+	padding: 10px 0;
+	text-align: center;
+}
+
+.h1 {
+	color: #ffffff;			
+	font-weight: bold;
+	font-size: 20pt;
+	font-family: 'Press Start 2P', cursive;
+	text-shadow: 2px 2px #1b5e20;
+}
+
+.centro {
+	font-size: 15pt;
+	font-weight: bold;
+	color: white;
+	font-family: 'Poppins', sans-serif;
+}
+
+.izq {
+	background-image: linear-gradient(to right, white, #66bb6a);
+	height: 5px;
+}
+.der {
+	background-image: linear-gradient(to right, #66bb6a, white);
+	height: 5px;
+}
+
+.v {
+	font-size: 60pt;
+	font-weight: bold;
+	color: #1b5e20;
+	text-shadow: 2px 2px #9ccc65;
+	font-family: 'Press Start 2P', cursive;
+}
+
+/* ===== FOOTER ===== */
+.footer1 {
+	background: linear-gradient(180deg, #1b5e20, #2e7d32);
+	color: #c8e6c9;
+	padding: 20px;
+	text-align: center;
+	font-family: 'Press Start 2P', sans-serif;
+}
+.footer2 {
+	background-color: #1b5e20;
+	color: #a5d6a7;
+	text-align: center;
+	padding: 10px;
+}
+
+footer a {
+	text-decoration: none;
+	color: #c5e1a5;
+	transition: color 0.3s;
+}
+footer a:hover {
+	color: #ffffff;
+}
+
+.ve {
+	font-size: 60pt;
+	font-weight: bold;
+	color: #9ccc65;				
+	font-family: 'Press Start 2P', cursive;
+}
+.me {
+	font-size: 60pt;
+	font-weight: bold;
+	color: white;						
+	font-family: 'Press Start 2P', cursive;
+}
+
+.links a {
+	color: #9ccc65;
+}
+.links a:hover {
+	color: white;
+}
+
+/* ===== NAVBAR ===== */
+.dropdown-menu {
+	margin-top: 0;
+	background-color: #e8f5e9;
+	border: 1px solid #81c784;
+	border-radius: 8px;
+	font-family: 'Poppins', sans-serif;
+}
+.dropdown-menu .dropdown-toggle::after {
+	vertical-align: middle;
+	border-left: 4px solid;
+	border-bottom: 4px solid transparent;
+	border-top: 4px solid transparent;
+	color: #2e7d32;
+}
+.dropdown-menu .dropdown .dropdown-menu {
+	left: 100%;
+	top: 0%;
+	margin: 0 20px;
+	border-width: 0;
+	background-color: #f1f8e9;
+}
+.dropdown-menu .dropdown .dropdown-menu.left {
+	right: 100%;
+	left: auto;
+}
+@media (min-width: 768px) {
+	.dropdown-menu .dropdown .dropdown-menu {
+		margin: 0;
+		border-width: 1px;
+	}
+	.dropdown-menu > li a:hover,
+	.dropdown-menu > li.show {
+		background: #66bb6a;
+		color: white;
+	}
+	.dropdown-menu > li.show > a {
+		color: white;
+	}
+}
