@@ -1,3 +1,33 @@
+<?php
+include("conexion.php");
+
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    if (!empty($_POST['nombre']) && !empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['pass2'])) {
+        $nombre = $_POST['nombre'];
+        $email = $_POST['email'];
+        $pass = $_POST['pass'];
+        $pass2 = $_POST['pass2'];
+
+        // Validamos que las contraseñas coincidan
+        if ($pass !== $pass2) {
+            echo "Las contraseñas no coinciden.";
+        } else {
+            // Insertamos el usuario (id_usuario se genera automáticamente)
+            $sql = "INSERT INTO usuarios (id_usuario,nombre, email, pass, rol, fecha_registro) 
+                    VALUES (0,'$nombre', '$email', '$pass', 0, NOW())";
+
+            if (mysqli_query($conn, $sql)) {
+                header("LOCATION:index.php");
+            } else {
+               echo "Error al registrar usuario: " . mysqli_error($conn);
+            }
+        }
+    } else {
+        echo "Faltan datos obligatorios.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
