@@ -2,7 +2,29 @@
 // 🔹 Iniciar sesión al principio SIEMPRE
 session_start();
 
+include("../conexion.php");
+
+$id_usuario = $_SESSION['id_usuario'];
+
 ?>
+
+<?php
+// Total de cartas del usuario
+$sql_total = "SELECT COUNT(*) as total FROM cartas WHERE id_usuario = $id_usuario";
+$res_total = mysqli_query($conn, $sql_total);
+$total = mysqli_fetch_assoc($res_total)['total'] ?? 0;
+
+// Cartas raras
+$sql_raras = "SELECT COUNT(*) as raras FROM cartas WHERE id_usuario = $id_usuario AND rareza='Rara'";
+$res_raras = mysqli_query($conn, $sql_raras);
+$raras = mysqli_fetch_assoc($res_raras)['raras'] ?? 0;
+
+// Cartas legendarias
+$sql_legendarias = "SELECT COUNT(*) as legendarias FROM cartas WHERE id_usuario = $id_usuario AND rareza='Legendaria'";
+$res_legendarias = mysqli_query($conn, $sql_legendarias);
+$legendarias = mysqli_fetch_assoc($res_legendarias)['legendarias'] ?? 0;
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -17,7 +39,7 @@ session_start();
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 	<link href="../styles.css" rel="stylesheet">
-	<link rel="icon" type="image/x-icon" href="img/grifo.ico">
+	<link rel="icon" type="image/x-icon" href="../img\Pokeball.png">
 	<title>GESTIÓN - POKEVEGA</title>
 </head>
 
@@ -29,7 +51,7 @@ session_start();
 			<div class="col-12 col-md-4">
 				<div class="row justify-content-center align-items-center">
 					<div class="col-auto mt-1">
-						<img class="m-0" src="img/GRIFO11.png" style="width:50px">
+						<img class="m-0" src="../img/Bulbasur.png" style="width:50px">
 					</div>
 					<div class="col-auto">
 						<p class="text-center m-0"><span class="v">V</span><span class="me">M</span></p>
@@ -45,14 +67,11 @@ session_start();
 		</header>
 	</div>
 
-	<!--Barra de navegación-->
+
+	<!-- 🔹 NAVBAR -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="main_navbar">
 		<div class="container-fluid">
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-				data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent"
-				aria-expanded="false"
-				aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
@@ -61,147 +80,121 @@ session_start();
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-							<i class="bi bi-file-earmark-post-fill"></i> Material Curricular
+							<i class="bi bi-collection-fill"></i> Visualizar Cartas
 						</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Nuevo</a></li>
-							<li><a class="dropdown-item" href="#">Consultar</a></li>
-							<li><a class="dropdown-item" href="#">Editorial</a></li>
+							<li><a class="dropdown-item" href="visualizarCarta.php">Visualizar</a></li>
 						</ul>
 					</li>
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-							<i class="bi bi-person-fill-gear"></i> Personal
+							<i class="bi bi-plus-circle"></i> Añadir Cartas
 						</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Datos</a></li>
-							<li class="nav-item dropdown">
-								<a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Asuntos propios</a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Solicitar</a></li>
-									<li><a class="dropdown-item" href="#">Consultar</a></li>
-									<li><a class="dropdown-item" href="#">Asignar</a></li>
-								</ul>
-							</li>
-
-							<li class="nav-item dropdown">
-								<a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Faltas</a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Nueva</a></li>
-									<li><a class="dropdown-item" href="#">Consultar</a></li>
-								</ul>
-							</li>
-
-							<li class="nav-item dropdown">
-								<a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Bajas</a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Nueva</a></li>
-									<li><a class="dropdown-item" href="#">Consultar</a></li>
-								</ul>
-							</li>
-
-							<li class="nav-item dropdown">
-								<a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Actividad</a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Nueva</a></li>
-									<li><a class="dropdown-item" href="#">Consultar</a></li>
-								</ul>
-							</li>
-
-							<li><a class="dropdown-item" href="#">Participación</a></li>
+							<li><a class="dropdown-item" href="insertarCarta.php">Añadir</a></li>
 						</ul>
 					</li>
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-							<i class="bi bi-file-earmark-person"></i> Alumnos
+							<i class="bi bi-pencil-square"></i> Modificar
 						</a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Plumier</a></li>
+							<li><a class="dropdown-item" href="modificarCarta.php">Modificar cartas</a></li>
 						</ul>
-					</li>
-
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-							<i class="bi bi-files"></i> Documentación
-						</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Crear categoría</a></li>
-							<li><a class="dropdown-item" href="#">Subir documentos</a></li>
-							<li><a class="dropdown-item" href="#">Consultar doc.</a></li>
-						</ul>
-					</li>
-
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-							<i class="bi bi-building-fill-gear"></i> Organización
-						</a>
-						<ul class="dropdown-menu">
-							<li class="nav-item dropdown">
-								<a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Horarios</a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Insertar guardias</a></li>
-									<li><a class="dropdown-item" href="#">Horario grupo/aulas</a></li>
-									<li><a class="dropdown-item" href="#">Horario Personal</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-							<i class="bi bi-tools"></i> Administración
-						</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Gest. Bajas</a></li>
-							<li><a class="dropdown-item" href="#">Sugerencias</a></li>
-							<li class="nav-item dropdown">
-								<a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Guardias</a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Guardias</a></li>
-									<li><a class="dropdown-item" href="#">Guardias de recreo</a></li>
-								</ul>
-							</li>
-							<li><a class="dropdown-item" href="#">Tareas Pendientes</a></li>
-							<li><a class="dropdown-item" href="#">Compras</a></li>
-							<li><a class="dropdown-item" href="#">Caja</a></li>
-							<li><a class="dropdown-item" href="#">Cont. Asuntos propios</a></li>
-						</ul>
-					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="#"><i class="bi bi-list-check"></i> Encuestas</a>
 					</li>
 				</ul>
 
 				<!-- 🔹 Usuario logueado -->
-				<ul class="navbar-nav mx-auto">
+				<ul class="navbar-nav">
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-							<i class="bi bi-person-fill"></i>
-							<?php
-							if (isset($_SESSION['nombre'])) {
-								echo ($_SESSION['nombre']);
-							} else {
-								header("LOCATION: index.php");
-								exit;
-							}
-							?>
+							<i class="bi bi-person-circle"></i>
+							<?php echo htmlspecialchars($_SESSION['nombre']); ?>
 						</a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="../logout.php">Cerrar sesión</a></li>
 						</ul>
 					</li>
 				</ul>
-
 			</div>
 		</div>
 	</nav>
 
-	<!--Contenido de la página-->
-	<section>
-		<h1>Usuario normal</h1>
+	<section class="container mt-5 mb-5">
+
+		<div class="row text-center mb-4">
+			<h2 class="fw-bold text-primary animate__animated animate__fadeInDown">
+				Bienvenido, <?php echo $_SESSION['nombre']; ?> 👋
+			</h2>
+			<p class="text-muted">Aquí puedes gestionar tus cartas, ver tu colección y realizar cambios.</p>
+		</div>
+
+		<!-- Tarjetas de opciones -->
+		<div class="row justify-content-center g-4">
+
+			<!-- Visualizar cartas -->
+			<div class="col-md-4">
+				<div class="card shadow h-100 border-primary">
+					<div class="card-body text-center">
+						<i class="bi bi-collection-fill display-4 text-primary mb-3"></i>
+						<h5 class="card-title">Visualizar Cartas</h5>
+						<p class="card-text">Consulta todas las cartas que has añadido a tu colección.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Añadir nueva carta -->
+			<div class="col-md-4">
+				<div class="card shadow h-100 border-success">
+					<div class="card-body text-center">
+						<i class="bi bi-plus-circle-fill display-4 text-success mb-3"></i>
+						<h5 class="card-title">Añadir Carta</h5>
+						<p class="card-text">Agrega nuevas cartas Pokémon a tu colección personal.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modificar cartas -->
+			<div class="col-md-4">
+				<div class="card shadow h-100 border-warning">
+					<div class="card-body text-center">
+						<i class="bi bi-pencil-square display-4 text-warning mb-3"></i>
+						<h5 class="card-title">Modificar Cartas</h5>
+						<p class="card-text">Edita los datos o elimina cartas existentes de tu colección.</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Sección de estadísticas del usuario -->
+		<div class="container mt-5">
+			<div class="row text-center">
+				<div class="col-md-4 mb-3">
+					<div class="p-3 bg-light border rounded">
+						<h4 class="text-primary">Total de cartas</h4>
+						<p class="display-6 fw-bold"><?php echo $total; ?></p>
+					</div>
+				</div>
+
+				<div class="col-md-4 mb-3">
+					<div class="p-3 bg-light border rounded">
+						<h4 class="text-success">Cartas raras</h4>
+						<p class="display-6 fw-bold"><?php echo $raras; ?></p>
+					</div>
+				</div>
+
+				<div class="col-md-4 mb-3">
+					<div class="p-3 bg-light border rounded">
+						<h4 class="text-danger">Cartas legendarias</h4>
+						<p class="display-6 fw-bold"><?php echo $legendarias; ?></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</section>
 
 	<script src="./Bootstrap/js/bootnavbar.js"></script>
@@ -209,7 +202,63 @@ session_start();
 		new bootnavbar();
 	</script>
 
-	<?php include("../footer.php"); ?>
+
+
+	<footer>
+		<div class="container-fluid ">
+			<div class="row justify-content-center footer1">
+				<div class="row justify-content-center mt-4">
+					<div class="col-auto">
+						<a href="https://www.google.es/maps/place/CES+Vega+Media/@38.0515582,-1.253702,17z/data=!3m1!4b1!4m5!3m4!1s0xd647ed425284579:0xc1fae33ccb32d958!8m2!3d38.0515582!4d-1.253702" target="_blank">
+							<i class="bi bi-geo-alt-fill"></i>&nbsp;&nbsp;CES VEGA MEDIA, S. COOP.
+						</a>
+					</div>
+					<div class="w-100 d-sm-none"></div>
+					<div class="col-auto ">
+						<i class="bi bi-envelope-fill"></i>&nbsp;&nbsp;vegamedia@ces-vegamedia.es
+					</div>
+					<div class="w-100 d-sm-none"></div>
+					<div class="col-auto">
+						<i class="bi bi-telephone-fill"></i>&nbsp;&nbsp;968 620 913<br>
+					</div>
+				</div>
+				<div class="row justify-content-center align-items-center">
+					<div class="col-auto">
+						<img src="../img\Bulbasur.PNG" width="80px">
+					</div>
+					<div class="col-auto">
+						<span class="ve"> POKE</span><span class="me">VEGA</span>
+					</div>
+					<div class="col-12 ">
+						<p class="text-center"> Ctra. De Mula, 37 – Alguazas
+							30560 – Murcia</p>
+					</div>
+				</div>
+				<div class="row justify-content-center mb-2 links">
+					<div class=" col-auto">
+						<a href="https://ces-vegamedia.es/aviso-legal/" target="_blank"> Aviso legal</a>
+					</div>
+					<div class="col-auto">
+						<a href="https://ces-vegamedia.es/privacidad/" target="_blank">Política de privacidad</a>
+					</div>
+					<div class="col-auto">
+						<a href="https://ces-vegamedia.es/cookies/" target="_blank">Política de cookies</a>
+					</div>
+					<div class="col-auto">
+						<a href="https://ces-vegamedia.es/condiciones-de-compra/" target="_blank">Condiciones generales de contratación</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 text-center footer2">
+					<p class="mb-3 mt-2 small">TRABAJO REALIZADO POR JOSE ANTONIO PEÑALVER HERNANDEZ<br>
+						2025 CES VEGA MEDIA | CENTRO DE ENSEÑANZA©</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
 </body>
 
 </html>

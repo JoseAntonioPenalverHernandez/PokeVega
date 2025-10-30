@@ -36,8 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 			$row = mysqli_fetch_assoc($result);
 
 			// Guardamos en variables de sesión algunos datos del usuario
+			$_SESSION['id_usuario'] = $row["id_usuario"]; // ✅ Guarda el ID del usuario logueado
 			$_SESSION['nombre'] = $row["nombre"];
 			$_SESSION['rol'] = $row["rol"];
+
 
 			// Redirigir según el rol del usuario
 			if ($row["rol"] == 0) {
